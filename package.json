@@ -1,0 +1,20 @@
+{
+  "name": "RestClient",
+  "version": "1.0.0",
+  "description": "JavaScript Rest API Client class for Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pchangbin/node-RestClient.git"
+  },
+  "keywords": ["class", "rest", "api"],
+  "author": "Changbin Park <gh4ck3r@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pchangbin/node-RestClient/issues"
+  },
+  "homepage": "https://github.com/pchangbin/node-RestClient#readme"
+}
