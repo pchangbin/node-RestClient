@@ -1,6 +1,6 @@
 {
   "name": "RestClient",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "JavaScript Rest API Client class for Node.js",
   "main": "index.js",
   "scripts": {
