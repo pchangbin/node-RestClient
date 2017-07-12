@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const {URL} = require('url');
+const {URL, URLSearchParams} = require('url');
 const RestifyClient = require('restify-clients');
 
 class RestApiClient {
@@ -50,6 +50,17 @@ class RestApiClient {
         } else if (typeof aBody === 'string') {
           resolve(JSON.parse(obj).data);
         }
+      });
+    });
+  }
+
+  async get(aPath, aParam) {
+    const searchParam = !aParam ? '' :
+      `${~aPath.indexOf('?')?'&':'?'}${new URLSearchParams(aParam).toString()}`;
+    return new Promise((resolve) => {
+      this.client.get(aPath + searchParam, (err, req, res, obj) => {
+        assert.ifError(err);
+        resolve(obj);
       });
     });
   }

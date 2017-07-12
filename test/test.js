@@ -32,16 +32,39 @@ describe('RestApiClient method', function() {
 
   describe('post', function() {
     const path = '/post';
-    it('JSON', async function() {
+    it('send/receive JSON object', async function() {
       const body = {foo:'hello', bar:'world'};
       const json = await client.post(path, body);
       assert.deepEqual(body, json);
     });
-    it('String', async function() {
+    it('send/receive string', async function() {
       const body = 'Hello world!';
       const data = await client.post(path, body);
       assert.strictEqual(body, data);
     });
 
+  });
+
+  describe('get', function() {
+    it('pass given object as search parameters', async function() {
+      const params = {
+        foo: 'hello',
+        bar: 'world',
+      };
+      const resp = JSON.parse(await client.get('/get', params));
+      assert.deepEqual(params, resp.args);
+    });
+
+    it('merges search parameters in aPath and given parameter as object',
+      async function() {
+        const params = {
+          foo: 'hello',
+          bar: 'world',
+        };
+        const resp = JSON.parse(await client.get('/get?baz', params));
+        assert.strictEqual(resp.args.foo, params.foo);
+        assert.strictEqual(resp.args.bar, params.bar);
+        assert.strictEqual(resp.args.baz, '');
+      });
   });
 });
