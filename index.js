@@ -19,6 +19,12 @@ class RestApiClient {
     });
   }
 
+  static async post(aURL, aBody) {
+    const {origin, pathname, search, hash} = new URL(aURL);
+    return await new RestApiClient(origin)
+      .post(pathname + search + hash, aBody);
+  }
+
   async post(aPath, aBody) {
     let path, body;
     if (aBody instanceof Object) {
@@ -52,6 +58,12 @@ class RestApiClient {
         }
       });
     });
+  }
+
+  static async get(aURL, aParam) {
+    const {origin, pathname, search, hash} = new URL(aURL);
+    return await new RestApiClient(origin)
+      .get(pathname + search + hash, aParam);
   }
 
   async get(aPath, aParam) {

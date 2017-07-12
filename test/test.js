@@ -68,3 +68,25 @@ describe('RestApiClient method', function() {
       });
   });
 });
+
+describe('Static method', function() {
+  describe('post', function() {
+    const full_url = `${url}/post`;
+    it('send/receive JSON object', async function() {
+      const body = {foo:'hello', bar:'world'};
+      const json = await RestApiClient.post(full_url, body);
+      assert.deepEqual(body, json);
+    });
+  });
+
+  describe('get', function() {
+    it('pass given object as search parameters', async function() {
+      const params = {
+        foo: 'hello',
+        bar: 'world',
+      };
+      const resp = JSON.parse(await RestApiClient.get(`${url}/get`, params));
+      assert.deepEqual(params, resp.args);
+    });
+  });
+});
