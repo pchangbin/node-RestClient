@@ -14,9 +14,18 @@ class RestApiClient {
       throw new TypeError(aConfig);
     }
 
-    Object.defineProperty(this, 'client', {
-      value: RestifyClient.createStringClient(aConfig)
+    Object.defineProperties(this, {
+      client: { value: RestifyClient.createStringClient(aConfig) },
+      headers: {
+        get: () => this.client.headers,
+        enumerable: true
+      }
     });
+  }
+
+  setHeader(aKey, aValue) {
+    this.headers[aKey] = aValue;
+    return this;
   }
 
   static async post(aURL, aBody) {

@@ -42,7 +42,6 @@ describe('RestApiClient method', function() {
       const {data} = await client.post(path, body);
       assert.strictEqual(body, data);
     });
-
   });
 
   describe('get', function() {
@@ -66,6 +65,36 @@ describe('RestApiClient method', function() {
         assert.strictEqual(resp.args.bar, params.bar);
         assert.strictEqual(resp.args.baz, '');
       });
+  });
+
+  describe('HTTP Header functionality', function() {
+    const key = 'Foo', value = 'hello WORLD';
+    describe('property "headers"', function() {
+      it('permanent headers are exposed through "hearers" property', function () {
+        const {headers} = client;
+        assert.ok(headers.accept);
+        assert.ok(headers['content-type']);
+        assert.ok(headers['user-agent']);
+
+        assert.strictEqual(client.headers[key], undefined);
+        client.setHeader(key, value);
+        assert.strictEqual(client.headers[key], value);
+      });
+    });
+    describe('setHeader', function() {
+      before('Clear HTTP header for test from client instance', function() {
+        delete client.headers[key];
+      });
+
+
+      it('sets HTTP header permanentely', async function() {
+        let resp = JSON.parse(await client.setHeader(key, value).get('/get'));
+        assert.strictEqual(resp.headers[key], value);
+
+        resp = JSON.parse(await client.get('/get'));
+        assert.strictEqual(resp.headers[key], value);
+      });
+    });
   });
 });
 
