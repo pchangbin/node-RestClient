@@ -51,10 +51,8 @@ class RestApiClient {
     return new Promise((resolve) => {
       this.client.post(path, body, (err, req, res, obj) => {
         assert.ifError(err);
-        if (aBody instanceof Object) {
-          resolve(JSON.parse(obj).json);
-        } else if (typeof aBody === 'string') {
-          resolve(JSON.parse(obj).data);
+        if (aBody instanceof Object || typeof aBody === 'string') {
+          resolve(JSON.parse(obj));
         }
       });
     });

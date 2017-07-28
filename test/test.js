@@ -34,12 +34,12 @@ describe('RestApiClient method', function() {
     const path = '/post';
     it('send/receive JSON object', async function() {
       const body = {foo:'hello', bar:'world'};
-      const json = await client.post(path, body);
+      const {json} = await client.post(path, body);
       assert.deepEqual(body, json);
     });
     it('send/receive string', async function() {
       const body = 'Hello world!';
-      const data = await client.post(path, body);
+      const {data} = await client.post(path, body);
       assert.strictEqual(body, data);
     });
 
@@ -74,7 +74,7 @@ describe('Static method', function() {
     const full_url = `${url}/post`;
     it('send/receive JSON object', async function() {
       const body = {foo:'hello', bar:'world'};
-      const json = await RestApiClient.post(full_url, body);
+      const {json} = await RestApiClient.post(full_url, body);
       assert.deepEqual(body, json);
     });
   });
